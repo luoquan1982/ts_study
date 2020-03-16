@@ -224,6 +224,7 @@ class Cat extends Animal{
 }
 */
 
+/*
 abstract class Animal {
   name: string;
 
@@ -248,3 +249,27 @@ class Dog extends Animal {
 
 const dog = new Dog('美丹');
 dog.eat();
+*/
+
+// 1.属性接口 对json的约束
+
+// ts中定义方法
+/*
+function printLabel(lableInfo: { label: string }): void {
+  console.log("printLabel");
+}
+
+printLabel({ label: "hahaha" });
+*/
+
+// 就是传入对象的约束 属性的接口
+interface FullName {
+  firstName: string; // 注意 以;结束
+  secondName?: string;
+}
+
+function printName(name: FullName) {
+  console.log(`${name.firstName}`);
+}
+
+printName({ firstName: "quan"});
