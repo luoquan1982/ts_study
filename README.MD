@@ -72,15 +72,15 @@
 
 - 函数声明法
 
-```
+```js
 function run():string{
-return 'run';
+  return 'run';
 }
 ```
 
 - 匿名函数
 
-```
+```js
 const func2 = function():number{
   return 123;
 }
@@ -88,7 +88,7 @@ const func2 = function():number{
 
 - es5 里面方法的实参和形参可以不一样,但是 ts 中必须一样,如果不一样就需要配置可选参数
 
-```
+```js
 function getInfo(name:string,age?:number):string{
   let result:string;
   age?result = `${name}----${age}`:`${name}----年龄保密`;
@@ -99,7 +99,7 @@ function getInfo(name:string,age?:number):string{
 - 默认参数:es5 中没法设置默认参数,es6 和 ts 中都可以设置默认参数
 - 注意:可选参数必须配置到参数的最后面
 
-```
+```js
 function getInfo(name:string,age:number=20){
   return `${name}----${age}`;
 }
@@ -107,7 +107,7 @@ function getInfo(name:string,age:number=20){
 
 - 剩余参数
 
-```
+```js
 function sun(...args:number[]){
   return args.reduce((total,num)=> total+sum,0);
 }
@@ -116,7 +116,7 @@ function sun(...args:number[]){
 - ts 函数重载
   - ts 为了兼容 es 以及 es6 重载的写法和 java 中有区别.
 
-```
+```js
 function fun(name: string): string;
 
 function fun(age: number): number;
@@ -136,7 +136,7 @@ alert(fun(38));
 - 箭头函数
 - 注意箭头函数里面 this 指向的上下文
 
-```
+```js
 setTimeout(()=>{
   alert('1秒后执行');
 },1000);
@@ -148,7 +148,7 @@ setTimeout(()=>{
 
 - 最简单的类
 
-```
+```js
 function Person(){
   this.name = '张三';
   this.age = 20;
@@ -160,7 +160,7 @@ alert(p.name);
 
 - 构造函数和原型链里面增加方法
 
-```
+```js
 function Person(){
   this.name = '张三';
   this.age = 20;
@@ -178,7 +178,7 @@ p.work();
 ```
 
 - 类里面的静态方法
-```
+```js
 function Person(){
   this.name = '张三';
   this.age = 20;
@@ -202,7 +202,7 @@ p.work();
 ```
 
 - es5里面的继承 对象冒充继承
-```
+```js
 function Person(){
   this.name = '张三';
   this.age = 20;
@@ -227,7 +227,7 @@ w.work(); // 此方法会报错,因为对象冒充继承可以继承构造函数
 ```
 
 - es5里面的继承 原型链继承
-```
+```js
 function Person(){
   this.name = '张三';
   this.age = 20;
@@ -254,7 +254,7 @@ w.work(); // 原型链继承可以继承原型链上的属性和方法
 ```
 
 - 原型链继承的问题
-```
+```js
 function Person(name,age){
   this.name = name;
   this.age = age;
@@ -278,7 +278,7 @@ w.run();
 ```
 
 - 组合继承模式 原型链+构造函数的组合继承模式
-```
+```js
 function Person(name,age){
   this.name = name;
   this.age = age;
@@ -302,7 +302,7 @@ w.run();
 ```
 
 - 原型链 + 对象冒充继承的另一种方式
-```
+```js
 function Person(name,age){
   this.name = name;
   this.age = age;
@@ -324,3 +324,91 @@ Web.prototype = Person.prototype;
 var w = new Web('赵四',20);
 w.run();
 ```
+
+### TS中定义类
+```js
+class Person {
+  name: string;
+
+  constructor(name: string) {
+    // 构造函数 实例化类的时候触发的方法
+    this.name = name;
+  }
+
+  getName:string(){
+    return this.name;
+  }
+
+  setName:void(name:string){
+    this.name = name
+  }
+
+  run(): void {
+    alert(this.name);
+  }
+}
+
+const p = new Person("张三");
+alert(p.getName());
+```
+
+### TS中类的继承 extends super
+```js
+class Person {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  run(): string {
+    return `${this.name}在运动`;
+  }
+}
+
+class Web extends Person {
+  // 构造函数是必须要有的
+  constructor(name:string){
+    super(name);  // 初始化父类的构造函数
+  }
+}
+
+var w = new Web('李四');
+alert(w.run());
+```
+
+### TS中继承的探讨 父类的方法和子类的方法一致
+```js
+class Person {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  run(): string {
+    return `${this.name}在运动`;
+  }
+}
+
+class Web extends Person {
+  constructor(name: string) {
+    super(name);
+  }
+
+  run(): string {
+    return `${this.name}在运动-子类`;
+  }
+}
+
+var w = new Web("李四");
+alert(w.run());
+```
+
+### 类里的修饰符 typescript里面定义属性的时候给我们提供了 三种修饰符
+  - public:公有 在类里面 子类 类外面都可以访问
+  - protected:保护类型 在类里面 子类里面可以访问,在类外部没法访问
+  - private:私有 在类里面可以访问 子类,类外部都没法访问
+  - 注意:属性如果不加修饰符,默认就是public
+
+### 静态属性 静态方法

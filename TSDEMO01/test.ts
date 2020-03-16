@@ -81,5 +81,81 @@ function fun(str: any): any {
   }
 }
 
-alert(fun('罗全'));
+alert(fun("罗全"));
 alert(fun(38));
+
+// ts中定义类
+/*
+class Person {
+  name: string;
+
+  constructor(name: string) {
+    // 构造函数 实例化类的时候触发的方法
+    this.name = name;
+  }
+
+  getName() {
+    return this.name;
+  }
+
+  setName(name: string) {
+    this.name = name;
+  }
+
+  run(): void {
+    alert(this.name);
+  }
+}
+
+
+const p = new Person("罗闰杰~~~");
+alert(p.getName());
+*/
+
+/*
+class Person {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  run(): string {
+    return `${this.name}在运动`;
+  }
+}
+
+class Web extends Person {
+  constructor(name:string){
+    super(name);  // 初始化父类的构造函数
+  }
+}
+
+var w = new Web('李四');
+alert(w.run());
+*/
+
+class Person {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  run(): string {
+    return `${this.name}在运动`;
+  }
+}
+
+class Web extends Person {
+  constructor(name: string) {
+    super(name);
+  }
+
+  run(): string {
+    return `${this.name}在运动-子类`;
+  }
+}
+
+var w = new Web("李四");
+alert(w.run());

@@ -1,4 +1,17 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 /*
     vscode配置自动编译
     
@@ -65,5 +78,75 @@ function fun(str) {
         return "\u6211\u7684\u5E74\u9F84\u662F" + str;
     }
 }
-alert(fun('罗全'));
+alert(fun("罗全"));
 alert(fun(38));
+// ts中定义类
+/*
+class Person {
+  name: string;
+
+  constructor(name: string) {
+    // 构造函数 实例化类的时候触发的方法
+    this.name = name;
+  }
+
+  getName() {
+    return this.name;
+  }
+
+  setName(name: string) {
+    this.name = name;
+  }
+
+  run(): void {
+    alert(this.name);
+  }
+}
+
+
+const p = new Person("罗闰杰~~~");
+alert(p.getName());
+*/
+/*
+class Person {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  run(): string {
+    return `${this.name}在运动`;
+  }
+}
+
+class Web extends Person {
+  constructor(name:string){
+    super(name);  // 初始化父类的构造函数
+  }
+}
+
+var w = new Web('李四');
+alert(w.run());
+*/
+var Person = /** @class */ (function () {
+    function Person(name) {
+        this.name = name;
+    }
+    Person.prototype.run = function () {
+        return this.name + "\u5728\u8FD0\u52A8";
+    };
+    return Person;
+}());
+var Web = /** @class */ (function (_super) {
+    __extends(Web, _super);
+    function Web(name) {
+        return _super.call(this, name) || this;
+    }
+    Web.prototype.run = function () {
+        return this.name + "\u5728\u8FD0\u52A8-\u5B50\u7C7B";
+    };
+    return Web;
+}(Person));
+var w = new Web("李四");
+alert(w.run());
