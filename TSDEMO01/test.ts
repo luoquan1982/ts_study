@@ -24,3 +24,62 @@ enum Color {
 
 let c: Color = Color.blue;
 console.log(c);
+
+// 任意类型
+let a: any = 123;
+a = "a";
+
+// undefined
+let num: number | undefined = 3;
+num = undefined;
+console.log(num);
+
+// null
+let nul: null = null;
+console.log(nul);
+
+function run(): void {
+  console.log("run");
+}
+
+run();
+
+// never
+// let nev: never;
+
+// nev = (() => {
+//   throw new Error();
+// })();
+
+// es5中申明函数的方法
+function go() {
+  return "go";
+}
+
+// 匿名函数
+var go2 = function() {
+  return "go2";
+};
+
+// 剩余参数
+function sum(...args: number[]): number {
+  return args.reduce((total, number) => total + number, 0);
+}
+
+console.log(`result ${sum(1, 2, 3, 4, 5)}`);
+
+// ts中的重载
+function fun(name: string): string;
+
+function fun(age: number): number;
+
+function fun(str: any): any {
+  if (typeof str === "string") {
+    return `我叫${str}`;
+  } else {
+    return `我的年龄是${str}`;
+  }
+}
+
+alert(fun('罗全'));
+alert(fun(38));

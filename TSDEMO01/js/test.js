@@ -21,3 +21,49 @@ var Color;
 })(Color || (Color = {}));
 var c = Color.blue;
 console.log(c);
+// 任意类型
+var a = 123;
+a = "a";
+// undefined
+var num = 3;
+num = undefined;
+console.log(num);
+// null
+var nul = null;
+console.log(nul);
+function run() {
+    console.log("run");
+}
+run();
+// never
+// let nev: never;
+// nev = (() => {
+//   throw new Error();
+// })();
+// es5中申明函数的方法
+function go() {
+    return "go";
+}
+// 匿名函数
+var go2 = function () {
+    return "go2";
+};
+// 剩余参数
+function sum() {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
+    return args.reduce(function (total, number) { return total + number; }, 0);
+}
+console.log("result " + sum(1, 2, 3, 4, 5));
+function fun(str) {
+    if (typeof str === "string") {
+        return "\u6211\u53EB" + str;
+    }
+    else {
+        return "\u6211\u7684\u5E74\u9F84\u662F" + str;
+    }
+}
+alert(fun('罗全'));
+alert(fun(38));
