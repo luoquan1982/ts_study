@@ -134,7 +134,7 @@ class Web extends Person {
 var w = new Web('李四');
 alert(w.run());
 */
-
+/*
 class Person {
   name: string;
 
@@ -156,6 +156,95 @@ class Web extends Person {
     return `${this.name}在运动-子类`;
   }
 }
-
+ 
 var w = new Web("李四");
 alert(w.run());
+*/
+
+/*
+class Man {
+  name: string;
+
+  // 静态属性
+  static sex='Male';
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  run() {
+    alert(`${this.name}在运动`);
+  }
+
+  work(){
+    alert(`${this.name}在工作`);
+  }
+
+  // 静态方法 里面没法访问类里面的普通属性,只能访问静态属性
+  static print(){
+    alert(this.sex);
+    alert('类的静态方法')
+  }
+}
+
+Man.print();
+*/
+
+/*
+class Animal {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  eat() {
+    console.log("吃的方法");
+  }
+}
+
+class Dog extends Animal {
+  constructor(name: string) {
+    super(name);
+  }
+
+  eat() {
+    return `${this.name}吃骨头`;
+  }
+}
+
+class Cat extends Animal{
+  constructor(name: string) {
+    super(name);
+  }
+
+  eat() {
+    return `${this.name}吃鱼`;
+  }
+}
+*/
+
+abstract class Animal {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  // 父类中的抽象方法必须在子类中实现
+  abstract eat(): any;
+}
+
+class Dog extends Animal {
+  constructor(name: any) {
+    super(name);
+  }
+  // 抽象类的非抽象子类必须实现抽象类里面的抽象方法
+  eat() {
+    console.log(`${this.name}吃骨头`);
+  }
+}
+
+
+const dog = new Dog('美丹');
+dog.eat();

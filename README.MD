@@ -412,3 +412,96 @@ alert(w.run());
   - 注意:属性如果不加修饰符,默认就是public
 
 ### 静态属性 静态方法
+```js
+class Man {
+  name: string;
+
+  // 静态属性
+  static sex='Male';
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  run() {
+    alert(`${this.name}在运动`);
+  }
+
+  work(){
+    alert(`${this.name}在工作`);
+  }
+
+  // 静态方法 里面没法访问类里面的普通属性,只能访问静态属性
+  static print(){
+    alert(this.sex);
+    alert('类的静态方法')
+  }
+}
+
+Man.print();
+```
+
+### 多态:父类定义一个方法不去实现,让继承他的子类去实现 每一个子类有不同的表现 多态属于继承
+```js
+class Animal {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  eat() {
+    console.log("吃的方法");
+  }
+}
+
+class Dog extends Animal {
+  constructor(name: string) {
+    super(name);
+  }
+
+  eat() {
+    return `${this.name}吃骨头`;
+  }
+}
+
+class Cat extends Animal{
+  constructor(name: string) {
+    super(name);
+  }
+
+  eat() {
+    return `${this.name}吃鱼`;
+  }
+}
+```
+
+### 抽象方法 用abstract关键字定义抽象方法和抽象类,抽象类中的抽象方法不包含具体实现并且必须在派生类中实现.
+- 注意:抽象方法只能放在抽象类里面,抽象类不能被实例化
+- 抽象类和抽象方法用来定义标准
+```js
+abstract class Animal {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  // 父类中的抽象方法必须在子类中实现
+  abstract eat(): any;
+}
+
+class Dog extends Animal {
+  constructor(name: any) {
+    super(name);
+  }
+  // 抽象类的非抽象子类必须实现抽象类里面的抽象方法
+  eat() {
+    console.log(`${this.name}吃骨头`);
+  }
+}
+
+
+const dog = new Dog('美丹');
+dog.eat();
+```

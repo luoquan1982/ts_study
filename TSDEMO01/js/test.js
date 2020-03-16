@@ -129,24 +129,109 @@ class Web extends Person {
 var w = new Web('李四');
 alert(w.run());
 */
-var Person = /** @class */ (function () {
-    function Person(name) {
-        this.name = name;
-    }
-    Person.prototype.run = function () {
-        return this.name + "\u5728\u8FD0\u52A8";
-    };
-    return Person;
-}());
-var Web = /** @class */ (function (_super) {
-    __extends(Web, _super);
-    function Web(name) {
-        return _super.call(this, name) || this;
-    }
-    Web.prototype.run = function () {
-        return this.name + "\u5728\u8FD0\u52A8-\u5B50\u7C7B";
-    };
-    return Web;
-}(Person));
+/*
+class Person {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  run(): string {
+    return `${this.name}在运动`;
+  }
+}
+
+class Web extends Person {
+  constructor(name: string) {
+    super(name);
+  }
+
+  run(): string {
+    return `${this.name}在运动-子类`;
+  }
+}
+ 
 var w = new Web("李四");
 alert(w.run());
+*/
+/*
+class Man {
+  name: string;
+
+  // 静态属性
+  static sex='Male';
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  run() {
+    alert(`${this.name}在运动`);
+  }
+
+  work(){
+    alert(`${this.name}在工作`);
+  }
+
+  // 静态方法 里面没法访问类里面的普通属性,只能访问静态属性
+  static print(){
+    alert(this.sex);
+    alert('类的静态方法')
+  }
+}
+
+Man.print();
+*/
+/*
+class Animal {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  eat() {
+    console.log("吃的方法");
+  }
+}
+
+class Dog extends Animal {
+  constructor(name: string) {
+    super(name);
+  }
+
+  eat() {
+    return `${this.name}吃骨头`;
+  }
+}
+
+class Cat extends Animal{
+  constructor(name: string) {
+    super(name);
+  }
+
+  eat() {
+    return `${this.name}吃鱼`;
+  }
+}
+*/
+var Animal = /** @class */ (function () {
+    function Animal(name) {
+        this.name = name;
+    }
+    return Animal;
+}());
+var Dog = /** @class */ (function (_super) {
+    __extends(Dog, _super);
+    function Dog(name) {
+        return _super.call(this, name) || this;
+    }
+    // 抽象类的非抽象子类必须实现抽象类里面的抽象方法
+    Dog.prototype.eat = function () {
+        console.log(this.name + "\u5403\u9AA8\u5934");
+    };
+    return Dog;
+}(Animal));
+var dog = new Dog('美丹');
+dog.eat();
