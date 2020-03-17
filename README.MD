@@ -542,3 +542,211 @@ function printName(name: FullName) {
 
 printName({ firstName: "quan"});
 ```
+
+- TS封装ajax
+```js
+interface Config {
+  type: string;
+  url: string;
+  data?: string;
+  dataType: string;
+}
+
+function ajax(config: Config) {
+  var xhr = new XMLHttpRequest();
+
+  xhr.open(config.type, config.url, true);
+
+  xhr.send(config.data);
+
+  xhr.onreadystatechange = function() {
+    if (4 === xhr.readyState && 200 === xhr.status) {
+      console.log("成功");
+      if ("json" === config.type) {
+        console.log(JSON.parse(xhr.responseText));
+      } else {
+        console.log(xhr.responseText);
+      }
+    }
+  };
+}
+
+ajax({
+  type: "get",
+  url: "http://a.itying.com/api/productlist",
+  dataType: "json"
+});
+```
+
+### 函数类型接口
+- 对方法传入的参数 以及返回值进行约束 批量约束
+```js
+interface encrypt {
+  (key: string, value: string): string;
+}
+
+const md5: encrypt = function(key: string, value: string): string {
+  return key + value;
+};
+
+console.log(md5('name','zhangshan'));
+
+```
+
+### 可索引接口:数组或对象的约束(不常用)
+```js
+interface UserArr {
+  [index: number]: string;  // 索引值必须为number,值必须为string
+}
+
+var arr: UserArr = ["aaa", "bbb"];
+console.log(arr[0]);
+```
+
+### 可索引接口:对对象的约束
+```js
+interface UserObj {
+  [index: string]: string;
+}
+
+const arr: UserObj = {
+  name: "luoquan"
+};
+```
+
+### 类类型接口:对类的约束 和抽象类有点相似
+```js
+interface Animal {
+  name: string;
+  eat(str: string): void;
+}
+
+class Dog implements Animal {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  eat(str: string) {
+    console.log(`${this.name}吃${str}`);
+  }
+}
+
+const d = new Dog('小黑');
+d.eat('骨头');
+```
+
+### 接口扩展:接口可以继承接口
+```js
+interface Animal {
+  eat(): void;
+}
+
+interface Person extends Animal {
+  work(): void;
+}
+
+class Programm {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  coding(code: string): void {
+    console.log(`${this.name} ${code}`);
+  }
+}
+
+class Web extends Programm implements Person {
+
+  constructor(name: string) {
+    super(name);
+  }
+
+  eat() {
+    console.log(`${this.name}:吃饭`);
+  }
+
+  work() {
+    console.log(`${this.name}:写代码`);
+  }
+}
+
+const w = new Web("罗全");
+w.eat();
+w.work();
+w.coding('react');
+```
+
+## 泛型
+- 软件工程中,我们不仅要创建一致的定义良好的API,同时也要考虑可重用性.组件不仅能够支持当前的数据类型,同时也能支持未来的数据类型,这在创建大型系统时为你提供了十分灵活的功能.
+- 在像C#和Java这样的语言中,可以使用泛型来创建可重用的组件,一个组件可以支持多种类型的数据.这样用户就可以以自己的数据类型来使用组件.
+- 通俗理解:泛型就是解决 类 接口 方法的复用性、以及对不特定数据类型的支持(类型校验)
+```js
+function getData<T>(value: T): T {
+  return value;
+}
+
+console.log(getData<string>('hello'));
+```
+
+- 泛型类:比如有个最小堆算法,需要同时支持返回数字和字符串两种类型.通过类的泛型来实现
+```js
+class MinClass<T> {
+  list: T[] = [];
+
+  add(value: T) {
+    this.list.push(value);
+  }
+
+  min(): T {
+    let min: T = this.list[0];
+    for (let i = 0; i < this.list.length; i++) {
+      if (min > this.list[i]) {
+        min = this.list[i];
+      }
+    }
+    return min;
+  }
+}
+
+const m = new MinClass<number>();
+
+m.add(7);
+m.add(5);
+m.add(9);
+m.add(4);
+m.add(8);
+
+console.log(m.min());
+```
+
+### 泛型接口1
+```js
+interface ConfigFn {
+  <T>(value: T): T;
+}
+
+const getData: ConfigFn = function<T>(value: T): T {
+  return value;
+};
+
+console.log(getData<string>('abc'));
+```
+
+### 泛型接口2
+```js
+interface ConfigFn<T> {
+  (value: T): T;
+}
+
+function getData<T>(value: T): T {
+  return value;
+}
+
+const myGetData:ConfigFn<string> = getData;
+
+console.log(myGetData('20'));
+```

@@ -5,6 +5,7 @@
     
     2.第二步 vscode 菜单栏 -> 终端 -> 运行任务 -> tsc:监视 - tsconfig.json
 */
+/*
 console.log("Hello Typescript");
 const str: string = "你好ts";
 
@@ -24,8 +25,10 @@ enum Color {
 
 let c: Color = Color.blue;
 console.log(c);
+*/
 
 // 任意类型
+/*
 let a: any = 123;
 a = "a";
 
@@ -43,6 +46,7 @@ function run(): void {
 }
 
 run();
+*/
 
 // never
 // let nev: never;
@@ -52,23 +56,30 @@ run();
 // })();
 
 // es5中申明函数的方法
+/*
 function go() {
   return "go";
 }
+*/
 
 // 匿名函数
+/*
 var go2 = function() {
   return "go2";
 };
+*/
 
 // 剩余参数
+/*
 function sum(...args: number[]): number {
   return args.reduce((total, number) => total + number, 0);
 }
 
 console.log(`result ${sum(1, 2, 3, 4, 5)}`);
+*/
 
 // ts中的重载
+/*
 function fun(name: string): string;
 
 function fun(age: number): number;
@@ -83,6 +94,7 @@ function fun(str: any): any {
 
 alert(fun("罗全"));
 alert(fun(38));
+*/
 
 // ts中定义类
 /*
@@ -263,6 +275,7 @@ printLabel({ label: "hahaha" });
 */
 
 // 就是传入对象的约束 属性的接口
+/*
 interface FullName {
   firstName: string; // 注意 以;结束
   secondName?: string;
@@ -273,3 +286,186 @@ function printName(name: FullName) {
 }
 
 printName({ firstName: "quan"});
+*/
+/*
+interface Config {
+  type: string;
+  url: string;
+  data?: string;
+  dataType: string;
+}
+
+function ajax(config: Config) {
+  var xhr = new XMLHttpRequest();
+
+  xhr.open(config.type, config.url, true);
+
+  xhr.send(config.data);
+
+  xhr.onreadystatechange = function() {
+    if (4 === xhr.readyState && 200 === xhr.status) {
+      console.log("成功");
+      if ("json" === config.type) {
+        console.log(JSON.parse(xhr.responseText));
+      } else {
+        console.log(xhr.responseText);
+      }
+    }
+  };
+}
+
+ajax({
+  type: "get",
+  url: "http://a.itying.com/api/productlist",
+  dataType: "json"
+});
+*/
+/*
+interface encrypt {
+  (key: string, value: string): string;
+}
+
+const md5: encrypt = function(key: string, value: string): string {
+  return key + value;
+};
+
+console.log(md5('name','zhangshan'));
+*/
+
+// 可索引接口:数组或对象的约束(不常用)
+/*
+interface UserArr {
+  [index: number]: string;  // 索引值必须为number,值必须为string
+}
+
+var arr: UserArr = ["aaa", "bbb"];
+console.log(arr[0]);
+*/
+
+// 可索引接口:对对象的约束
+/*
+interface UserObj {
+  [index: string]: string;
+}
+
+const arr: UserObj = {
+  name: "luoquan"
+};
+*/
+
+// 类类型接口:对类的约束 和抽象类有点相似
+/*
+interface Animal {
+  name: string;
+  eat(str: string): void;
+}
+
+class Dog implements Animal {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  eat(str: string) {
+    console.log(`${this.name}吃${str}`);
+  }
+}
+
+const d = new Dog('小黑');
+d.eat('骨头');
+*/
+
+// 接口扩展:接口可以继承接口
+/*
+interface Animal {
+  eat(): void;
+}
+
+interface Person extends Animal {
+  work(): void;
+}
+
+class Programm {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  coding(code: string): void {
+    console.log(`${this.name} ${code}`);
+  }
+}
+
+class Web extends Programm implements Person {
+
+  constructor(name: string) {
+    super(name);
+  }
+
+  eat() {
+    console.log(`${this.name}:吃饭`);
+  }
+
+  work() {
+    console.log(`${this.name}:写代码`);
+  }
+}
+
+const w = new Web("罗全");
+w.eat();
+w.work();
+w.coding('react');
+*/
+
+// 泛型
+/*
+function getData<T>(value: T): T {
+  return value;
+}
+
+console.log(getData<string>('hello'));
+*/
+
+// 泛型类:比如有个最小堆算法,需要同时支持返回数字和字符串两种类型.通过类的泛型来实现
+/*
+class MinClass<T> {
+  list: T[] = [];
+
+  add(value: T) {
+    this.list.push(value);
+  }
+
+  min(): T {
+    let min: T = this.list[0];
+    for (let i = 0; i < this.list.length; i++) {
+      if (min > this.list[i]) {
+        min = this.list[i];
+      }
+    }
+    return min;
+  }
+}
+
+const m = new MinClass<number>();
+m.add(7);
+m.add(5);
+m.add(9);
+m.add(4);
+m.add(8);
+console.log(m.min());
+*/
+
+// 函数类型接口2
+interface ConfigFn<T> {
+  (value: T): T;
+}
+
+function getData<T>(value: T): T {
+  return value;
+}
+
+const myGetData:ConfigFn<string> = getData;
+
+console.log(myGetData('20'));
