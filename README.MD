@@ -72,7 +72,7 @@
 
 - 函数声明法
 
-```js
+```ts
 function run():string{
   return 'run';
 }
@@ -80,7 +80,7 @@ function run():string{
 
 - 匿名函数
 
-```js
+```ts
 const func2 = function():number{
   return 123;
 }
@@ -88,7 +88,7 @@ const func2 = function():number{
 
 - es5 里面方法的实参和形参可以不一样,但是 ts 中必须一样,如果不一样就需要配置可选参数
 
-```js
+```ts
 function getInfo(name:string,age?:number):string{
   let result:string;
   age?result = `${name}----${age}`:`${name}----年龄保密`;
@@ -99,7 +99,7 @@ function getInfo(name:string,age?:number):string{
 - 默认参数:es5 中没法设置默认参数,es6 和 ts 中都可以设置默认参数
 - 注意:可选参数必须配置到参数的最后面
 
-```js
+```ts
 function getInfo(name:string,age:number=20){
   return `${name}----${age}`;
 }
@@ -107,7 +107,7 @@ function getInfo(name:string,age:number=20){
 
 - 剩余参数
 
-```js
+```ts
 function sun(...args:number[]){
   return args.reduce((total,num)=> total+sum,0);
 }
@@ -116,7 +116,7 @@ function sun(...args:number[]){
 - ts 函数重载
   - ts 为了兼容 es 以及 es6 重载的写法和 java 中有区别.
 
-```js
+```ts
 function fun(name: string): string;
 
 function fun(age: number): number;
@@ -136,7 +136,7 @@ alert(fun(38));
 - 箭头函数
 - 注意箭头函数里面 this 指向的上下文
 
-```js
+```ts
 setTimeout(()=>{
   alert('1秒后执行');
 },1000);
@@ -148,7 +148,7 @@ setTimeout(()=>{
 
 - 最简单的类
 
-```js
+```ts
 function Person(){
   this.name = '张三';
   this.age = 20;
@@ -160,7 +160,7 @@ alert(p.name);
 
 - 构造函数和原型链里面增加方法
 
-```js
+```ts
 function Person(){
   this.name = '张三';
   this.age = 20;
@@ -178,7 +178,7 @@ p.work();
 ```
 
 - 类里面的静态方法
-```js
+```ts
 function Person(){
   this.name = '张三';
   this.age = 20;
@@ -202,7 +202,7 @@ p.work();
 ```
 
 - es5里面的继承 对象冒充继承
-```js
+```ts
 function Person(){
   this.name = '张三';
   this.age = 20;
@@ -227,7 +227,7 @@ w.work(); // 此方法会报错,因为对象冒充继承可以继承构造函数
 ```
 
 - es5里面的继承 原型链继承
-```js
+```ts
 function Person(){
   this.name = '张三';
   this.age = 20;
@@ -254,7 +254,7 @@ w.work(); // 原型链继承可以继承原型链上的属性和方法
 ```
 
 - 原型链继承的问题
-```js
+```ts
 function Person(name,age){
   this.name = name;
   this.age = age;
@@ -278,7 +278,7 @@ w.run();
 ```
 
 - 组合继承模式 原型链+构造函数的组合继承模式
-```js
+```ts
 function Person(name,age){
   this.name = name;
   this.age = age;
@@ -302,7 +302,7 @@ w.run();
 ```
 
 - 原型链 + 对象冒充继承的另一种方式
-```js
+```ts
 function Person(name,age){
   this.name = name;
   this.age = age;
@@ -326,7 +326,7 @@ w.run();
 ```
 
 ### TS中定义类
-```js
+```ts
 class Person {
   name: string;
 
@@ -353,7 +353,7 @@ alert(p.getName());
 ```
 
 ### TS中类的继承 extends super
-```js
+```ts
 class Person {
   name: string;
 
@@ -378,7 +378,7 @@ alert(w.run());
 ```
 
 ### TS中继承的探讨 父类的方法和子类的方法一致
-```js
+```ts
 class Person {
   name: string;
 
@@ -412,7 +412,7 @@ alert(w.run());
   - 注意:属性如果不加修饰符,默认就是public
 
 ### 静态属性 静态方法
-```js
+```ts
 class Man {
   name: string;
 
@@ -442,7 +442,7 @@ Man.print();
 ```
 
 ### 多态:父类定义一个方法不去实现,让继承他的子类去实现 每一个子类有不同的表现 多态属于继承
-```js
+```ts
 class Animal {
   name: string;
 
@@ -479,7 +479,7 @@ class Cat extends Animal{
 ### 抽象方法 用abstract关键字定义抽象方法和抽象类,抽象类中的抽象方法不包含具体实现并且必须在派生类中实现.
 - 注意:抽象方法只能放在抽象类里面,抽象类不能被实例化
 - 抽象类和抽象方法用来定义标准
-```js
+```ts
 abstract class Animal {
   name: string;
 
@@ -516,7 +516,7 @@ dog.eat();
   - 类类型接口
   - 接口扩展
 
-```js
+```ts
 interface FullName {
   firstName: string; // 注意 以;结束
   secondName: string;
@@ -530,7 +530,7 @@ printName({ firstName: "quan", secondName: "luo" });
 ```
 
 ### 可选属性
-```js
+```ts
 interface FullName {
   firstName: string; // 注意 以;结束
   secondName?: string;
@@ -544,7 +544,7 @@ printName({ firstName: "quan"});
 ```
 
 - TS封装ajax
-```js
+```ts
 interface Config {
   type: string;
   url: string;
@@ -580,7 +580,7 @@ ajax({
 
 ### 函数类型接口
 - 对方法传入的参数 以及返回值进行约束 批量约束
-```js
+```ts
 interface encrypt {
   (key: string, value: string): string;
 }
@@ -594,7 +594,7 @@ console.log(md5('name','zhangshan'));
 ```
 
 ### 可索引接口:数组或对象的约束(不常用)
-```js
+```ts
 interface UserArr {
   [index: number]: string;  // 索引值必须为number,值必须为string
 }
@@ -604,7 +604,7 @@ console.log(arr[0]);
 ```
 
 ### 可索引接口:对对象的约束
-```js
+```ts
 interface UserObj {
   [index: string]: string;
 }
@@ -615,7 +615,7 @@ const arr: UserObj = {
 ```
 
 ### 类类型接口:对类的约束 和抽象类有点相似
-```js
+```ts
 interface Animal {
   name: string;
   eat(str: string): void;
@@ -638,7 +638,7 @@ d.eat('骨头');
 ```
 
 ### 接口扩展:接口可以继承接口
-```js
+```ts
 interface Animal {
   eat(): void;
 }
@@ -684,7 +684,7 @@ w.coding('react');
 - 软件工程中,我们不仅要创建一致的定义良好的API,同时也要考虑可重用性.组件不仅能够支持当前的数据类型,同时也能支持未来的数据类型,这在创建大型系统时为你提供了十分灵活的功能.
 - 在像C#和Java这样的语言中,可以使用泛型来创建可重用的组件,一个组件可以支持多种类型的数据.这样用户就可以以自己的数据类型来使用组件.
 - 通俗理解:泛型就是解决 类 接口 方法的复用性、以及对不特定数据类型的支持(类型校验)
-```js
+```ts
 function getData<T>(value: T): T {
   return value;
 }
@@ -693,7 +693,7 @@ console.log(getData<string>('hello'));
 ```
 
 - 泛型类:比如有个最小堆算法,需要同时支持返回数字和字符串两种类型.通过类的泛型来实现
-```js
+```ts
 class MinClass<T> {
   list: T[] = [];
 
@@ -724,7 +724,7 @@ console.log(m.min());
 ```
 
 ### 泛型接口1
-```js
+```ts
 interface ConfigFn {
   <T>(value: T): T;
 }
@@ -737,7 +737,7 @@ console.log(getData<string>('abc'));
 ```
 
 ### 泛型接口2
-```js
+```ts
 interface ConfigFn<T> {
   (value: T): T;
 }
@@ -750,3 +750,119 @@ const myGetData:ConfigFn<string> = getData;
 
 console.log(myGetData('20'));
 ```
+
+- 定义一个操作数据库的库 支持Mysql Mssql MongoDb
+- 要求:Mysql MsSql MongoDb功能一样 都有 add update delete get方法
+- 注意:约束统一的规范、以及代码重用
+- 解决方案:需要约束规范所以要定义接口,需要代码重用所以用到泛型
+  - 1.接口:在面向对象的编程中,接口是一种规范定义,它定义了行为和动作的规范
+  - 2.泛型 通俗理解:泛型就是解决 类 接口 方法的复用性
+```ts
+interface DBI<T> {
+  add(info: T): boolean;
+  update(info: T, id: number): boolean;
+  delete(id: number): boolean;
+  get(id: number): any[];
+}
+
+//定义一个操作mysql数据库的类
+//注意:要实现泛型接口 这个类也应该是一个泛型类
+class MysqlDb<T> implements DBI<T> {
+  add(info: T): boolean {
+    console.log(info);
+    return true;
+    throw new Error("Method not implemented.");
+  }
+  update(info: T, id: number): boolean {
+    throw new Error("Method not implemented.");
+  }
+  delete(id: number): boolean {
+    throw new Error("Method not implemented.");
+  }
+  get(id: number): any[] {
+    throw new Error("Method not implemented.");
+  }
+}
+
+// 定义一个操作mssql数据库的类
+class MssqlDb<T> implements DBI<T> {
+  add(info: T): boolean {
+    throw new Error("Method not implemented.");
+  }
+  update(info: T, id: number): boolean {
+    throw new Error("Method not implemented.");
+  }
+  delete(id: number): boolean {
+    throw new Error("Method not implemented.");
+  }
+  get(id: number): any[] {
+    throw new Error("Method not implemented.");
+  }
+}
+
+// 操作用户表 定义一个user类和数据表做映射
+class User {
+  username: string | undefined;
+  password: string | undefined;
+}
+
+const u = new User();
+u.username = "张三";
+u.password = "123456~";
+
+const oMysql = new MysqlDb<User>();
+oMysql.add(u);
+```
+
+## TS中的模块
+- 模块的概念(官方):关于术语的一点说明:请务必注意一点,typescript 1.5里面术语名已经发生了变化."内部模块"现在称做"命名空间"。"外部模块"现在则简称为"模块"模块再起自身的作用域里执行,而不是在全局作用域里;这意味着定义在一个模块里的变量,函数,类等等在模块外部是不可见的,除非你明确地使用export形式之一导出他们.相反,如果想使用其他模块导出的变量,函数,类,接口等得时候,你必须要导入他们,可以使用import形式之一.
+- 模块的概念(自己理解):我们可以吧一些公共的功能单独抽离成一个文件作为一个模块.模块里面的变量 函数 类等默认是私有的,如果我们要在外部访问模块里面的数据(变量、函数、类),我们需要通过export暴露模块里面的数据(变量、函数、类...)。暴露后我们通过import引入模块就可以使用模块里面暴露的数据(变量、函数、类...)
+```ts
+// 模块暴露方式一
+export const dbUrl = "××××××××";
+
+export function getData(): any[] {
+  console.log("获取数据库的数据");
+  return [
+    {
+      title: "123123"
+    },
+    {
+      title: "123123"
+    }
+  ];
+}
+
+export function save() {
+  console.log("保存数据成功");
+}
+```
+```ts
+// 模块暴露方式二
+const dbUrl = "××××××××";
+
+function getData(): any[] {
+  console.log("获取数据库的数据");
+  return [
+    {
+      title: "123123"
+    },
+    {
+      title: "123123"
+    }
+  ];
+}
+
+function save() {
+  console.log("保存数据成功");
+}
+
+export {
+  dbUrl,
+  getData,
+  save
+}
+```
+
+### export default 默认导出
+- 每个模块都可以有一个default导出.默认导出使用default关键字标记;并且一个模块只能够有一个default导出.需要使用一种特殊的导入形式来使用

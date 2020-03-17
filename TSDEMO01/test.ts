@@ -458,6 +458,7 @@ console.log(m.min());
 */
 
 // 函数类型接口2
+/*
 interface ConfigFn<T> {
   (value: T): T;
 }
@@ -469,3 +470,93 @@ function getData<T>(value: T): T {
 const myGetData:ConfigFn<string> = getData;
 
 console.log(myGetData('20'));
+*/
+/*
+interface DBI<T> {
+  add(info: T): boolean;
+  update(info: T, id: number): boolean;
+  delete(id: number): boolean;
+  get(id: number): any[];
+}
+
+// 定义一个操作mysql数据库的类
+// 注意:要实现泛型接口 这个类也应该是一个泛型类
+class MysqlDb<T> implements DBI<T> {
+  add(info: T): boolean {
+    console.log(info);
+    return true;
+    throw new Error("Method not implemented.");
+  }
+  update(info: T, id: number): boolean {
+    throw new Error("Method not implemented.");
+  }
+  delete(id: number): boolean {
+    throw new Error("Method not implemented.");
+  }
+  get(id: number): any[] {
+    throw new Error("Method not implemented.");
+  }
+}
+
+// 定义一个操作mssql数据库的类
+class MssqlDb<T> implements DBI<T> {
+  add(info: T): boolean {
+    throw new Error("Method not implemented.");
+  }
+  update(info: T, id: number): boolean {
+    throw new Error("Method not implemented.");
+  }
+  delete(id: number): boolean {
+    throw new Error("Method not implemented.");
+  }
+  get(id: number): any[] {
+    throw new Error("Method not implemented.");
+  }
+}
+
+// 操作用户表 定义一个user类和数据表做映射
+class User {
+  username: string | undefined;
+  password: string | undefined;
+}
+
+const u = new User();
+u.username = "张三";
+u.password = "123456~";
+
+const oMysql = new MysqlDb<User>();
+oMysql.add(u);
+*/
+/*
+import { MssqlDb } from "./modules/db";
+
+class User {
+  username: string | undefined;
+  password: string | undefined;
+}
+
+const u = new User();
+u.username='张三';
+u.password='123456';
+
+const oMysql = new MssqlDb<User>();
+oMysql.add(u);
+*/
+
+import { UserClass, UserModel } from "./model/user";
+import { ArticleClass, ArticleModel } from "./model/article";
+
+// 增加数据
+const user = new UserClass();
+user.username = "张三";
+user.password = "123456";
+
+UserModel.add(user);
+
+// 获取user表数据
+const res = UserModel.get(123);
+console.log(res);
+
+// 获取文章表的数据
+const aRes = ArticleModel.get(1);
+console.log(aRes);
