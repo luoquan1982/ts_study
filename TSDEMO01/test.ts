@@ -542,7 +542,7 @@ u.password='123456';
 const oMysql = new MssqlDb<User>();
 oMysql.add(u);
 */
-
+/*
 import { UserClass, UserModel } from "./model/user";
 import { ArticleClass, ArticleModel } from "./model/article";
 
@@ -560,3 +560,243 @@ console.log(res);
 // 获取文章表的数据
 const aRes = ArticleModel.get(1);
 console.log(aRes);
+*/
+/*
+namespace A {
+  interface Animal {
+    name: string;
+    eat(): void;
+  }
+
+  export class Dog implements Animal {
+    name: string;
+
+    constructor(name: string) {
+      this.name = name;
+    }
+
+    eat(): void {
+      console.log(`${this.name} 吃狗粮`);
+    }
+  }
+
+  export class Cat implements Animal {
+    name: string;
+
+    constructor(name: string) {
+      this.name = name;
+    }
+
+    eat(): void {
+      console.log(`${this.name} 吃猫粮`);
+    }
+  }
+
+}
+
+let dog = new A.Dog('狗狗');
+dog.eat();
+*/
+/*
+import { A } from './modules/a';
+
+const d = new A.Dog('小黄');
+d.eat();
+*/
+// 装饰器
+/*
+function logClass(params: any) {
+  // params就是被修饰的当前类
+  console.log(params);
+  // 动态扩展的属性
+  params.prototype.apiUrl = '动态扩展的属性';
+
+  params.prototype.run = function(){
+    console.log('扩展的run方法');
+  }
+}
+
+@logClass
+class HttpClient {
+  constructor() { }
+
+  getData() { }
+}
+
+const http: any = new HttpClient();
+console.log(http.apiUrl);
+http.run();
+*/
+
+// 类装饰器:装饰器工厂(可传参)
+/*
+function logClass(params: string) {
+  return function (target: any) {
+    console.log(`${target}---${params}`)
+    target.prototype.apiUrl = params;
+  }
+}
+
+@logClass('http://www.google.com')
+class HttpClient {
+  constructor() { }
+  getData() { }
+}
+
+const http: any = new HttpClient();
+console.log(http.apiUrl);
+*/
+// 类装饰器:重载构造函数的例子
+/*
+function logClass(target: any) {
+  console.log(target);
+
+  return class extends target {
+    apiUrl: any = '我是修改后的数据';
+    getData() {
+      super.getData();
+      console.log('我是修改后的方法');
+    }
+  }
+}
+
+@logClass
+class HttpClient {
+  apiUrl: string | undefined;
+  constructor() {
+    this.apiUrl = '我是构造函数里面的api';
+  }
+
+  getData() {
+    console.log(this.apiUrl);
+  }
+}
+
+const http = new HttpClient();
+http.getData();
+*/
+
+// 属性装饰器
+// 类装饰器
+/*
+function logClass(params: string) {
+  return function (target: any) {
+    console.log(target);
+    console.log(params);
+  }
+}
+*/
+/*
+// 属性装饰器
+function logProperty(params: any) {
+  return function (target: any, attr: any) {
+    console.log(target);  // target 类的原型对象
+    console.log(`attrname:${attr}`); // attr 被类修饰器修饰的属性名称
+    target[attr] = params;
+  }
+}
+
+// @logClass('×××××××××')
+class HttpClient {
+  @logProperty('https://www.google.com')
+  public url: any | undefined;
+  constructor() {
+  }
+
+  getData() {
+    console.log(this.url);
+  }
+}
+
+const http: any = new HttpClient();
+http.getData();
+*/
+
+//方法装饰器
+
+// 方法装饰器
+/*
+function get(params: any) {
+  return function (target: any, methodName: any, desc: any) {
+    console.log(target);
+    console.log(methodName);
+    console.log(desc);
+
+    target.apiUrl = '××××';
+    target.run = function () {
+      console.log('run');
+    }
+  }
+}
+
+class HttpClient {
+  url: any | undefined;
+  constructor() { }
+  @get('https://www.google.com')
+  getData() {
+    console.log(this.url);
+  }
+}
+
+const http: any = new HttpClient();
+console.log(http.apiUrl);
+http.run();
+*/
+/*
+function get(params: any) {
+  return function (target: any, methodName: any, desc: any) {
+    console.log(target);
+    console.log(methodName);
+    console.log(desc.value);
+
+    // 修改装饰器的方法 把装饰器方法里面传入的所有参数改为string类型
+    // 1.保存当前的方法
+    const oMethod = desc.value;
+    desc.value = function (...args: any[]) {
+      args = args.map((value) => String(value));
+      console.log(args);
+      console.log(params);
+      oMethod.apply(this, args);
+    }
+  }
+}
+
+
+class HttpClient {
+  url: any | undefined;
+  constructor() { }
+  @get('https://www.google.com')
+  getData(...args:any[]) {
+    console.log('我是getData里面的方法');
+    console.log(args);
+  }
+}
+
+const http: any = new HttpClient();
+http.getData(123, '××××');
+*/
+
+// 装饰器
+function logParams(params: any) {
+  return function (target: any, methodName: any, paramIndex: any) {
+    console.log(params);
+    console.log(target);
+    console.log(methodName);
+    console.log(paramIndex);
+    target.apiUrl = params;
+  }
+}
+
+class HttpClient {
+  url: any | undefined;
+
+  constructor() { }
+
+  getData(uuid: any, @logParams('×××××') data: any) {
+    console.log(`${uuid}----${data}`);
+  }
+}
+
+const http: any = new HttpClient();
+http.getData(123456, 565656);
+console.log(http.apiUrl);
